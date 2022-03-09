@@ -5,6 +5,8 @@ export class BulgarianStockExchange {
 
     public async getListedInstruments() {
         const data = await this.getAsset('#ListedInstrumentsUnited_TableSession_0');
+        console.log(data);
+        
         let allInstruments: Record<string, any> = [];
         let assetData: Record<string, any>;
         const keys: Array<string> = ['code', 'name', 'CFI', 'LEI', 'FISN', 'Volume', 'Nominal', 'Currency'];
@@ -13,8 +15,6 @@ export class BulgarianStockExchange {
             assetData = convertToObject(keys, asset);
             allInstruments.push(assetData);
         }
-
-        console.log(allInstruments);
 
         return allInstruments;
     }
@@ -36,7 +36,7 @@ export class BulgarianStockExchange {
         // Remove unnecessary title and button;
         data.shift();
         data.pop();
-        await browser.close();
+        browser.close();
 
         return data;
     }
