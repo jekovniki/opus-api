@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      container_name: opus-api
+      ports:
+      - "${REST_PORT}:3012"
+      depends_on:
+      - database
+      restart_policy: on-failure
+
+    database:
+      image: mysql:8.0
+      container_name: opus-database
+      command: --default-authentication-plugin=mysql_native_password
+      environment:
+        MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+        MYSQL_DATABASE: ${DB_NAME}
+        MYSQL_USER: ${DB_USER}
+        MYSQL_PASSWORD: ${DB_PASSWORD}
+      ports:
+        - "${DB_PORT}:3306"
+      volumes:
+        - dbdata:/var/lib/mysql
+      restart: on-failure
+
+volumes:
+  dbdata:
