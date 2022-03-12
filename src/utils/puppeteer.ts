@@ -1,9 +1,10 @@
 import puppeteer from "puppeteer";
 import { convertToObject } from "./helper";
+import { FailedResponse } from "../interfaces/utils";
 
 export class BulgarianStockExchange {
 
-    public async getListedSegments() {
+    public async getListedSegments(): Promise<Array<string[]> | FailedResponse> {
         const browser = await puppeteer.launch({ headless: true });
         const page = (await browser.pages())[0];
 
@@ -17,18 +18,35 @@ export class BulgarianStockExchange {
         });
 
         browser.close();
+
+        if (data === []) {
+            return {
+                error: 404,
+                code: 'NOT_FOUND',
+                message: `Puppeteer: could not fetch segments`
+            }
+        }
             
         return data;
     }
 
-    public async getListedInstruments() {
-        const values = await this.getAssetFromTable('#ListedInstrumentsUnited_TableSession_0');
+    public async getListedInstruments(htmlId: string): Promise<Array<object> | FailedResponse> {
+        const values = await this.getAssetFromTable(htmlId);
+
+        if (values.length === 0) {
+            return {
+                error: 404,
+                code: 'NOT_FOUND',
+                message: `Puppeteer: data fetch failed for element: ${htmlId}`
+            }
+        }
+
         const keys: Array<string> = ['code', 'name', 'CFI', 'LEI', 'FISN', 'Volume', 'Nominal', 'Currency'];
 
         return convertToObject(keys, values);
     }
 
-    private async getAssetFromTable(htmlId: string) {
+    private async getAssetFromTable(htmlId: string): Promise<Array<string[]>> {
         const browser = await puppeteer.launch({ headless: true});
         const page = (await browser.pages())[0];
 
