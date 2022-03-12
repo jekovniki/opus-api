@@ -1,9 +1,9 @@
 import { BulgarianStockExchange } from '../src/utils/puppeteer';
 
-jest.setTimeout(10000);
+jest.setTimeout(20000);
 
 describe('BulgarianStockExchange methods test', () => {
-    test('+ getListedInstruments should return array', async () => {
+    test('+ getListedInstruments | return array', async () => {
         const result = await new BulgarianStockExchange().getListedInstruments();
         
         expect(result.length > 0).toBe(true);
@@ -12,4 +12,10 @@ describe('BulgarianStockExchange methods test', () => {
         expect('CFI' in result[0]).toBe(true);
         expect('LEI' in result[0]).toBe(true);
     });
+    
+    test('+ getListedSegments | return array', async () => {
+        const result = await new BulgarianStockExchange().getListedSegments();
+        
+        expect(result[0].length > 1).toBe(true);
+    })
 })
