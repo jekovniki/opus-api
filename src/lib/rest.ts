@@ -29,7 +29,7 @@ export function useBodyParser(rest: RestServer): void {
 
 export function start(rest: RestServer): void {
     const server = rest.getServer();
-    const port = rest.getPort() ? rest.getPort() : '5000';
+    const port = rest.getPort() ? rest.getPort() : '3012';
     
     server.listen(port, () => {
         console.log(`Server listening on: localhost: ${port}`);
