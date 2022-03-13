@@ -21,4 +21,12 @@ describe('BulgarianStockExchange methods test', () => {
         
         expect(!('error' in result) && result[0].length > 1).toBe(true);
     })
+
+    test('+ getInstrumentData | return IBSEAsset', async () => {
+        const result =  await new BulgarianStockExchange().getInstrumentData('EUBG');
+
+        expect('asset' in result).toBe(true);
+        expect('marketData' in result).toBe(true);
+        expect('marketSession' in result).toBe(true);
+    })
 })
