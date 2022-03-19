@@ -66,7 +66,7 @@ export class BulgarianStockExchange {
 
         browser.close();
 
-        if (data === []) {
+        if (data.length === 0) {
             return {
                 error: 404,
                 code: 'NOT_FOUND',
