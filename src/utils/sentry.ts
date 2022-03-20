@@ -1,12 +1,14 @@
 import * as Sentry from '@sentry/node';
 import { RewriteFrames } from '@sentry/integrations';
+import dotenv from 'dotenv';
 
+dotenv.config();
 export class SentryConfiguration {
 
     public static connect() {
 
         Sentry.init({
-            dsn: "https://d6623ac6d984468e8a213ae2c7b0f570@o1166172.ingest.sentry.io/6256485",
+            dsn: process.env.SENTRY_DSN,
             integrations: [
                 new RewriteFrames({
                     root: process.cwd(),

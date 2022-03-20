@@ -1,4 +1,4 @@
-import { BulgarianStockExchange } from '../src/utils/puppeteer';
+import { BulgarianStockExchange, CompanyData } from '../src/utils/puppeteer';
 
 jest.setTimeout(20000);
 
@@ -28,5 +28,12 @@ describe('BulgarianStockExchange methods test', () => {
         expect('asset' in result).toBe(true);
         expect('marketData' in result).toBe(true);
         expect('marketSession' in result).toBe(true);
+    })
+
+    test('+ getCompaniesData | return data', async () => {
+        const result = await new CompanyData().getCompanies();
+        console.log(result);
+        
+        expect(result).toBeDefined();
     })
 })

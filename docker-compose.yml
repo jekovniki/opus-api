@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "${REST_PORT}:3012"
+      - "3012:3012"
     volumes:
       - .:/opus-backend
       - '/opus-backend/node_modules'
@@ -17,8 +17,16 @@ services:
   database:
     platform: linux/x86_64
     image: mysql:8.0
+    restart: unless-stopped
+    volumes:
+      - ../opus-db/init.sql:/docker-entrypoint-initdb.d/0_init.sql
+      - $HOME/database:/var/lib/mysql
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
     environment:
-      - MYSQL_DATABSE=opus
-      - MYSQL_USER=dev
-      - MYSQL_PASSWORD=password
-      - MYSQL_ROOT_PASSWORD=root
+      MYSQL_DATABASE: opusdatabase
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
