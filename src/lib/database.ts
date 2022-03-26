@@ -26,6 +26,17 @@ export class MySQLDatabase {
             }
         })
     }
+    public async query(queryString: string, parameters: any = []): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.connection.query(queryString, parameters, (error, result) => {
+                if (error) {
+                    reject(error);
+                }
+
+                resolve(result);
+            });
+        });
+    }
 }
 
 export function connect(database: MySQLDatabase): MySQLDatabase {

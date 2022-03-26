@@ -5,9 +5,7 @@ import { IBSEAsset } from "../interfaces/puppeteer";
 
 export class BulgarianStockExchange {
 
-    public async getInstrumentData(assetCode: string): Promise<IBSEAsset | FailedResponse> {
-        const browser = await puppeteer.launch({ headless: true });
-        const page = (await browser.pages())[0];
+    public async getInstrumentData(page: any, assetCode: string): Promise<IBSEAsset | FailedResponse> {
 
         await page.goto(`https://www.bse-sofia.bg/bg/issuer-profile/${assetCode}/`, {waitUntil: 'networkidle0'});
 
@@ -22,15 +20,15 @@ export class BulgarianStockExchange {
             }
         });
 
-        const marketInfo = await page.$$eval('.right_inner_padded #table_profil_market_info tr', (rows) => {
-            return Array.from(rows, (row) => {
+        const marketInfo = await page.$$eval('.right_inner_padded #table_profil_market_info tr', (rows: any) => {
+            return Array.from(rows, (row: any) => {
                 const columns = row.querySelectorAll('td');
                 return Array.from(columns, (column: any) => column.innerText);
             })
         });
 
-        const marketSession = await page.$$eval('.right_inner_padded #table_profil_market_session_results tr', (rows) => {
-            return Array.from(rows, (row) => {
+        const marketSession = await page.$$eval('.right_inner_padded #table_profil_market_session_results tr', (rows: any) => {
+            return Array.from(rows, (row: any) => {
                 const columns = row.querySelectorAll('td');
                 return Array.from(columns, (column: any) => column.innerText);
             })
@@ -41,8 +39,6 @@ export class BulgarianStockExchange {
         
         const marketSessionResult = Object.fromEntries(marketSession);
         const marketData = Object.fromEntries(marketInfo);
-        
-        browser.close();
 
         return {
             asset: assetPrice,
@@ -51,20 +47,15 @@ export class BulgarianStockExchange {
         };
     }
 
-    public async getListedSegments(): Promise<Array<string[]> | FailedResponse> {
-        const browser = await puppeteer.launch({ headless: true });
-        const page = (await browser.pages())[0];
-
+    public async getListedSegments(page: any): Promise<Array<string[]> | FailedResponse> {
         await page.goto(`https://www.bse-sofia.bg/bg/listed-instruments/by-instrument`, {waitUntil: 'networkidle0'});
         
-        const data = await page.$$eval('.left_inner_padded', (elements) => {
-            return Array.from(elements, (element) => {
+        const data = await page.$$eval('.left_inner_padded', (elements: any) => {
+            return Array.from(elements, (element: any) => {
                 const data = element.querySelectorAll('.ellipsis');
                 return Array.from(data, (text:any) => text.innerText);
             })
         });
-
-        browser.close();
 
         if (data.length === 0) {
             return {
@@ -77,8 +68,8 @@ export class BulgarianStockExchange {
         return data;
     }
 
-    public async getListedInstruments(htmlId: string): Promise<Array<object> | FailedResponse> {
-        const values = await this.getAssetFromTable(htmlId);
+    public async getListedInstruments(page: any, htmlId: string): Promise<Array<object> | FailedResponse> {
+        const values = await this.getAssetFromTable(page, htmlId);
 
         if (values.length === 0) {
             return {
@@ -93,9 +84,7 @@ export class BulgarianStockExchange {
         return convertToObject(keys, values);
     }
 
-    private async getAssetFromTable(htmlId: string): Promise<Array<string[]>> {
-        const browser = await puppeteer.launch({ headless: true});
-        const page = (await browser.pages())[0];
+    private async getAssetFromTable(page: any, htmlId: string): Promise<Array<string[]>> {
 
         await page.goto(`https://www.bse-sofia.bg/bg/listed-instruments/by-instrument`, {waitUntil: 'networkidle0'});
         const data = await page.$$eval(
@@ -110,7 +99,6 @@ export class BulgarianStockExchange {
         // Remove unnecessary title and button;
         data.shift();
         data.pop();
-        browser.close();
 
         return data;
     }
