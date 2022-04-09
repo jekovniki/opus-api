@@ -12,7 +12,6 @@ describe('BulgarianStockExchange methods test', () => {
     })
     test('+ getListedInstruments | return array', async () => {
         const result = await new BulgarianStockExchange().getListedInstruments(page, '#ListedInstrumentsUnited_TableSession_0');
-        console.log(result);
         
         expect(!('error' in result) && result.length > 0).toBe(true);
         expect(!('error' in result) && 'code' in result[0]).toBe(true);

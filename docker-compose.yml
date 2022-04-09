@@ -1,18 +1,18 @@
 version: '3.8'
 
 services:
-  opus-api:
-    platform: linux/x86_64
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "3012:3012"
-    volumes:
-      - .:/opus-backend
-      - '/opus-backend/node_modules'
-    depends_on:
-      - database
+  # opus-api:
+  #   platform: linux/x86_64
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "3012:3012"
+  #   volumes:
+  #     - .:/opus-backend
+  #     - '/opus-backend/node_modules'
+  #   depends_on:
+  #     - database
 
   database:
     platform: linux/x86_64
@@ -26,7 +26,7 @@ services:
     expose:
       - 3306
     environment:
-      MYSQL_DATABASE: opusdatabase
-      MYSQL_USER: dev
-      MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: password
+      - MYSQL_DATABASE=localhost
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=password
