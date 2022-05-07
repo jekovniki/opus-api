@@ -51,3 +51,16 @@ export async function createUsersTable() {
         )`
     );
 }
+
+export async function createLandingPageImageTable() {
+    return database.query(
+        `CREATE TABLE if not exists ${dbName}.unsplash(
+        id INT NOT NULL AUTO_INCREMENT,
+        url VARCHAR(255) NOT NULL,
+        photographer VARCHAR(255) DEFAULT NULL NULL,
+        country VARCHAR(100) DEFAULT NULL NULL,
+        city VARCHAR(100) DEFAULT NULL NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        primary key (id))`
+    )
+}

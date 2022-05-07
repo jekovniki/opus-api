@@ -1,4 +1,5 @@
 import mysql from 'mysql2';
+import * as database from '../dal/create-database';
 
 export class MySQLDatabase {
     private connection: mysql.Connection;
@@ -44,4 +45,17 @@ export async function connect(database: MySQLDatabase): Promise<MySQLDatabase> {
     await database.connect();
 
     return database;
+}
+
+export async function load() {
+    try {
+        database.createBSEAssetsTable();
+        database.createCompaniesTable();
+        database.createUsersTable();
+        database.createLandingPageImageTable();
+
+        console.log('Database tables loaded');
+    } catch(error) {
+        console.log('loadDatabaseTables()', error);
+    }
 }

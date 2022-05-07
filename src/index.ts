@@ -19,10 +19,16 @@ export const rest = new _rest.RestServer({
     port: process.env.REST_PORT
 })
 
-_database.connect(database);
+async function main() {
+    _database.connect(database);
+    _database.load();
 
-if (process.env.NODE_ENV !== 'test') {
-    _rest.useBodyParser(rest);
-    _rest.start(rest);
-    _router.setRoutes(rest);
+    if (process.env.NODE_ENV !== 'test') {
+        _rest.useBodyParser(rest);
+        _rest.start(rest);
+        _router.setRoutes(rest);
+    }
+
 }
+
+main();
