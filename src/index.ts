@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import * as _rest from './lib/rest';
 import * as _router from './controllers/routes';
 import * as _database from './lib/database';
+import { fetchUnsplashImages } from './utils/unsplash';
 
 dotenv.config();
 
@@ -22,6 +23,8 @@ export const rest = new _rest.RestServer({
 async function main() {
     _database.connect(database);
     _database.load();
+    
+    fetchUnsplashImages()
 
     if (process.env.NODE_ENV !== 'test') {
         _rest.useBodyParser(rest);

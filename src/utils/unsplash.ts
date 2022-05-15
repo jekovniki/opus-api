@@ -26,7 +26,7 @@ class UnsplashImages {
             return { success: true };
         } catch (error) {
             console.log('UnsplashImages.fetch(): ',error);
-            
+
             return { success: false }
         }
     }
@@ -57,6 +57,30 @@ class UnsplashImages {
             return { success: false }
         }
     }
+}
+
+export async function fetchUnsplashImages(): Promise<void> {
+    try {
+        const minutes: number = 5;
+        const interval: number = minutes * 60 * 1000;
+        let numberOfFetchedImages: number = 0;
+
+        setInterval(async () => {
+            await Unsplash.fetch();
+            console.log('Image fetched from unsplash');
+
+            numberOfFetchedImages++;
+            if(numberOfFetchedImages >= 50) {
+                await Unsplash.delete();
+                console.log('50 images from unsplash were deleted from database');
+
+                numberOfFetchedImages = 0;
+            }
+        }, interval);
+    } catch (error) {
+        console.log('Something happened with the unsplash fetch loop', error);
+    }
+
 }
 
 export const Unsplash = new UnsplashImages();

@@ -15,7 +15,7 @@ export async function removeUnsplashImage(): Promise<void> {
     await database.query(
         `DELETE FROM ${process.env.DB_NAME}.unsplash
         ORDER BY created_at ASC
-        LIMIT 1`
+        LIMIT 50`
     );
 }
 
