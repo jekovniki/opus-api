@@ -3,7 +3,7 @@ import { Unsplash } from "../utils/unsplash";
 
 export async function fetchBackgroundImage(_request: any, response: any): Promise<void> {
     try {
-        response.send(await Unsplash.get());
+        const data = await Unsplash.get();
     } catch(error) {
         console.log(error);
         response.json({ success: false});
