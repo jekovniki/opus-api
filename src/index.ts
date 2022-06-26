@@ -4,6 +4,7 @@ import * as _rest from './lib/rest';
 import * as _router from './controllers/routes';
 import * as _database from './lib/database';
 import { fetchUnsplashImages } from './utils/unsplash';
+import { CommercialRegisterActions, getCommercialData } from './service/CommercialRegister';
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ async function main() {
     _database.load();
     
     fetchUnsplashImages()
+    await getCommercialData();
 
     if (process.env.NODE_ENV !== 'test') {
         _rest.useBodyParser(rest);

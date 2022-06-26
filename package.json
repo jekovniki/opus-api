@@ -10,6 +10,7 @@
     "dev": "nodemon ./src/index.ts",
     "test": "npx jest tests/ --detectOpenHandles",
     "test-bse": "npx jest tests/bse.test.ts --detectOpenHandles",
+    "test-ud": "npx jest tests/puppeteer.test.ts --detectOpenHandles",
     "test-unsplash": "npx jest tests/unsplash.test.ts --detectOpenHandles"
   },
   "repository": {

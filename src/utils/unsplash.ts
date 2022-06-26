@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IUnsplashImage, Response } from "../interfaces/IUtils";
+import { UnsplashImage, Response } from "../interfaces/TUtils";
 import { currentSeason } from "./helper";
 import * as DalUnsplash from '../dal/utils/unsplash';
 
@@ -15,7 +15,7 @@ class UnsplashImages {
                 throw { error: 'Fetching image from unsplash was unsuccessful' }
             }
 
-            const imageData: IUnsplashImage = {
+            const imageData: UnsplashImage = {
                 url: response.data.urls.full,
                 photographer: response.data.user.name,
                 city: response.data.location.city,
@@ -43,7 +43,7 @@ class UnsplashImages {
         }
     }
 
-    async get(): Promise<IUnsplashImage | Response> {
+    async get(): Promise<UnsplashImage | Response> {
         try {
             const image = await DalUnsplash.getUnsplashImage();
             if (image.length === 0) {

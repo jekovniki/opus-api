@@ -8,7 +8,7 @@ export type Response = {
     success: boolean;
 }
 
-export type IUnsplashImage = {
+export type UnsplashImage = {
     id?: number;
     url: string;
     photographer: string;

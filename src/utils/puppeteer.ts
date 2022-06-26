@@ -1,6 +1,6 @@
-import puppeteer from "puppeteer";
+import puppeteer, { ConsoleMessage } from "puppeteer";
 import { convertToObject } from "./helper";
-import { FailedResponse } from "../interfaces/IUtils";
+import { FailedResponse } from "../interfaces/TUtils";
 import { IBSEAsset } from "../interfaces/IPuppeteer";
 
 export class BulgarianStockExchange {
@@ -101,5 +101,38 @@ export class BulgarianStockExchange {
         data.pop();
 
         return data;
+    }
+}
+
+export class ManagementCompanies {
+    public async getCompanies() {
+        let browser = await puppeteer.launch({ headless: true });
+        let page = (await browser.pages())[0];
+        let companies: any = [];
+
+        await page.goto(
+            `http://212.122.187.59/public/index.php?lang=bg&language=bg-BG&option=com_content&view=category&layout=blog&id=2&Itemid=103&bridge=y&backId=0&tplId=Tpl_7&act=DISPLAY&docId=0`, 
+            {
+                waitUntil: 'networkidle0'
+            });
+
+        const data = await page.evaluate(() => {
+            const companyData: any = document.querySelector('#fsc-wrapper ol li a');
+
+            if(!companyData) {
+                throw new Error('Body was not found');
+            }
+
+            for (const company of companyData) {
+                companies.push({
+                    name: company.innerText,
+                    url: company.href
+                })
+            }
+            console.log('companies:', companies);
+            })
+
+        console.log('data:', data);
+        return companies;
     }
 }

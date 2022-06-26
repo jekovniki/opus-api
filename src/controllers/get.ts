@@ -1,4 +1,3 @@
-import { IUnsplashImage } from "../interfaces/IUtils";
 import { Unsplash } from "../utils/unsplash";
 
 export async function fetchBackgroundImage(_request: any, response: any): Promise<void> {
