@@ -1,4 +1,4 @@
-import axios from "axios";
+import APIRequest from '../lib/fetch';
 import { UnsplashImage, Response } from "../interfaces/TUtils";
 import * as DalUnsplash from '../dal/unsplash';
 import { LegalFormEnum } from "../utils/enums";
@@ -12,8 +12,7 @@ class CommercialRegister {
 
     public async fetch(uic: string): Promise<TManagementCompany | Response> {
         try {
-            const response = await axios.get(`https://portal.registryagency.bg/CR/api/Deeds/${uic}`);
-
+            const response = await APIRequest.get(`https://portal.registryagency.bg/CR/api/Deeds/${uic}`);
             if(response.status !== 200) {
                 console.log(`Commercial Register failed to fetch for UIC: ${uic}`);
 

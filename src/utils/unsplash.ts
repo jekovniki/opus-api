@@ -1,4 +1,4 @@
-import axios from "axios";
+import APIRequest from '../lib/fetch';
 import { UnsplashImage, Response } from "../interfaces/TUtils";
 import { currentSeason } from "./helper";
 import * as DalUnsplash from '../dal/unsplash';
@@ -9,7 +9,7 @@ class UnsplashImages {
         try {
             const accessKey = "8F_4kR9pvaS1pOBIdAaBQ6zLeEjhbH0X2z4mBUGf3AE";
             const seasonOfTheYear = currentSeason();
-            const response = await axios.get(`https://api.unsplash.com/photos/random/?client_id=${accessKey}&query=${seasonOfTheYear}&orientation=landscape`);
+            const response = await APIRequest.get(`https://api.unsplash.com/photos/random/?client_id=${accessKey}&query=${seasonOfTheYear}&orientation=landscape`);
             
             if(!response.data.urls.full) {
                 throw { error: 'Fetching image from unsplash was unsuccessful' }

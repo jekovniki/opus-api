@@ -1,7 +1,4 @@
-interface ServerConfiguration {
-    port: string | undefined;
-    server: any;
-}
+import { ServerConfiguration } from "../interfaces/ILib";
 
 export class RestServer {
     private server: any;
