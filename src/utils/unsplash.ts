@@ -1,7 +1,7 @@
 import axios from "axios";
 import { UnsplashImage, Response } from "../interfaces/TUtils";
 import { currentSeason } from "./helper";
-import * as DalUnsplash from '../dal/utils/unsplash';
+import * as DalUnsplash from '../dal/unsplash';
 
 class UnsplashImages {
 

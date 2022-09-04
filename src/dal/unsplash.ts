@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
-import { UnsplashImage } from '../../interfaces/TUtils';
-import { database } from '../../index';
+import { UnsplashImage } from '../interfaces/TUtils';
+import { database } from '../index';
 
 dotenv.config();
 
