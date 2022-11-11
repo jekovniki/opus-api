@@ -17,16 +17,16 @@ services:
   database:
     platform: linux/x86_64
     image: mysql:8.0
-    restart: unless-stopped
     volumes:
-      - ../opus-db/init.sql:/docker-entrypoint-initdb.d/0_init.sql
-      - $HOME/database:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/0_init.sql
+      - $HOME/database:/var/lib/mysql:rw
+    user: mysql
     ports:
       - 3306:3306
     expose:
       - 3306
     environment:
-      - MYSQL_DATABASE=localhost
+      - MYSQL_DATABASE=opus
       - MYSQL_USER=root
       - MYSQL_PASSWORD=password
       - MYSQL_ROOT_PASSWORD=password
