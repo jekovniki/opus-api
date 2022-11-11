@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Fetch, TRestConfiguration } from '../interfaces/ILib';
+import logger from '../utils/logger';
 
 class APIRequest implements Fetch {
 
@@ -10,7 +11,7 @@ class APIRequest implements Fetch {
             
             return response;
         } catch(error) {
-            console.log(error);
+            logger.error(error, { url, configuration });
         }
 
     }
@@ -21,7 +22,7 @@ class APIRequest implements Fetch {
 
             return await request.post(url, data);
         } catch(error) {
-            console.log(error);
+            logger.error(error, { url, configuration, data });
         }
     }
 }

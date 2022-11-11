@@ -4,7 +4,7 @@ export type FailedResponse = {
     message: string
 }
 
-export type Response = {
+export interface Response {
     success: boolean;
 }
 
@@ -15,4 +15,8 @@ export type UnsplashImage = {
     city: string;
     country: string;
     created_at?: Date;
+}
+
+export interface LogResponse extends Response {
+
 }

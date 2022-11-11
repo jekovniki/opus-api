@@ -1,4 +1,5 @@
 import * as DAL from "../dal/assets";
+import logger from "../utils/logger";
 import { BulgarianStockExchange } from "../utils/puppeteer";
 
 export async function addBSEAssets(type: string, page: any, htmlId: string) {
@@ -16,7 +17,7 @@ export async function addBSEAssets(type: string, page: any, htmlId: string) {
 
         return true;
     } catch (error) {
-        console.error('SERVICE: addBSEAssets', error);
+        logger.error(error);
     }
     
 }

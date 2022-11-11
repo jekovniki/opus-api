@@ -1,5 +1,6 @@
 import mysql from 'mysql2';
 import * as database from '../dal/create-database';
+import logger from '../utils/logger';
 
 export class MySQLDatabase {
     private connection: mysql.Connection;
@@ -31,7 +32,7 @@ export class MySQLDatabase {
         return new Promise((resolve, reject) => {
             this.connection.query(queryString, parameters, (error, result) => {
                 if (error) {
-                    console.log(error);
+                    logger.error(error);
                     reject(error);
                 }
 
@@ -56,6 +57,6 @@ export async function load() {
 
         console.log('Database tables loaded');
     } catch(error) {
-        console.log('loadDatabaseTables()', error);
+        logger.error(error);
     }
 }

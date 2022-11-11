@@ -1,4 +1,4 @@
-import { SentryConfiguration } from './utils/sentry';
+import { Sentry } from './utils/sentry';
 import express from 'express';
 import dotenv from 'dotenv';
 import { RestServer } from './lib/rest';
@@ -9,7 +9,7 @@ import { CommercialRegisterActions, getCommercialData } from './service/Commerci
 
 dotenv.config();
 
-// SentryConfiguration.connect();
+Sentry.connect();
 
 const port = process.env.REST_PORT ?? '3012';
 const server = express();
