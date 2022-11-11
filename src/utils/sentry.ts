@@ -1,13 +1,13 @@
-import * as Sentry from '@sentry/node';
+import * as SentryConfig from '@sentry/node';
 import { RewriteFrames } from '@sentry/integrations';
 import dotenv from 'dotenv';
 
 dotenv.config();
-export class SentryConfiguration {
+export class Sentry {
 
     public static connect() {
 
-        Sentry.init({
+        SentryConfig.init({
             dsn: process.env.SENTRY_DSN,
             integrations: [
                 new RewriteFrames({
@@ -20,5 +20,17 @@ export class SentryConfiguration {
             // We recommend adjusting this value in production
             tracesSampleRate: 1.0,
           });
+    }
+
+    public static error(error: any) {
+        SentryConfig.captureException(error);
+    }
+
+    public static info(info: any) {
+        SentryConfig.captureMessage(info);
+    }
+
+    public static event(info: any) {
+        SentryConfig.captureEvent(info);
     }
 }
