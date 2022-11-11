@@ -2,6 +2,7 @@ import APIRequest from '../lib/fetch';
 import { UnsplashImage, Response } from "../interfaces/TUtils";
 import { currentSeason } from "./helper";
 import * as DalUnsplash from '../dal/unsplash';
+import logger from './logger';
 
 class UnsplashImages {
 
@@ -25,9 +26,8 @@ class UnsplashImages {
         
             return { success: true };
         } catch (error) {
-            console.log('UnsplashImages.fetch(): ',error);
 
-            return { success: false }
+            return logger.error(error);
         }
     }
 
@@ -37,9 +37,8 @@ class UnsplashImages {
 
             return { success: true }
         } catch(error) {
-            console.log('UnsplashImages.delete(): ', error);
 
-            return { success: false }
+            return logger.error(error);
         }
     }
 
@@ -52,9 +51,8 @@ class UnsplashImages {
 
             return image[0];
         } catch(error) {
-            console.log('UnsplashImage.get(): ', error);
 
-            return { success: false }
+            return logger.error(error);
         }
     }
 }
@@ -78,7 +76,8 @@ export async function fetchUnsplashImages(): Promise<void> {
             }
         }, interval);
     } catch (error) {
-        console.log('Something happened with the unsplash fetch loop', error);
+        
+        logger.error(error);
     }
 
 }

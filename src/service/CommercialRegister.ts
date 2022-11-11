@@ -3,6 +3,7 @@ import { UnsplashImage, Response } from "../interfaces/TUtils";
 import * as DalUnsplash from '../dal/unsplash';
 import { LegalFormEnum } from "../utils/enums";
 import { TManagementCompany } from "../interfaces/TCommercialRegister";
+import logger from '../utils/logger';
 
 class CommercialRegister {
     
@@ -14,9 +15,7 @@ class CommercialRegister {
         try {
             const response = await APIRequest.get(`https://portal.registryagency.bg/CR/api/Deeds/${uic}`);
             if(response.status !== 200) {
-                console.log(`Commercial Register failed to fetch for UIC: ${uic}`);
-
-                return { success: false }
+                throw new Error(`Commercial Register failed to fetch for UIC: ${uic}`);
             }
 
             let data: any = {
@@ -78,9 +77,8 @@ class CommercialRegister {
 
             return data;
         } catch (error) {
-            console.log('CommercialRegister.fetch() encountered unexpected error: ', error);
 
-            return { success: false }
+            return logger.error(error);
         }
     }
 
@@ -90,9 +88,8 @@ class CommercialRegister {
 
             return { success: true }
         } catch(error) {
-            console.log('UnsplashImages.delete(): ', error);
 
-            return { success: false }
+            return logger.error(error);
         }
     }
 
@@ -105,9 +102,9 @@ class CommercialRegister {
 
             return image[0];
         } catch(error) {
-            console.log('UnsplashImage.get(): ', error);
 
-            return { success: false }
+            return logger.error(error);
+
         }
     }
 }
