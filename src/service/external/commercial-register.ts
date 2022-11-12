@@ -1,9 +1,9 @@
-import APIRequest from '../lib/fetch';
-import { UnsplashImage, Response } from "../interfaces/TUtils";
-import * as DalUnsplash from '../dal/unsplash';
-import { LegalFormEnum } from "../utils/enums";
-import { TManagementCompany } from "../interfaces/TCommercialRegister";
-import logger from '../utils/logger';
+import APIRequest from '../../lib/fetch';
+import { UnsplashImage, Response } from "../../interfaces/TUtils";
+import * as DalUnsplash from '../../dal/unsplash';
+import { LegalFormEnum } from "../../utils/enums";
+import { TManagementCompany } from "../../interfaces/TCommercialRegister";
+import logger from '../../utils/logger';
 
 class CommercialRegister {
     
@@ -111,11 +111,9 @@ class CommercialRegister {
 
 export const CommercialRegisterActions = new CommercialRegister();
 
-export async function getCommercialData() {
+export async function getCommercialData(UIC: string) {
     
-   const result =  await CommercialRegisterActions.fetch('175263888');
-   const result2 =  await CommercialRegisterActions.fetch('131422901');
-
-   console.log(result);
-   console.log(result2);
+   const result =  await CommercialRegisterActions.fetch(UIC);
+   
+   return result;
 }

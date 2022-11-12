@@ -2,27 +2,29 @@ import mysql from 'mysql2';
 import * as database from '../dal/create-database';
 import logger from '../utils/logger';
 
-export class MySQLDatabase {
-    private connection: mysql.Connection;
+export class Database {
+    private connection: any;
 
-    constructor(configuration: any) {
-        this.connection = mysql.createConnection(configuration);
+    constructor(connection: any) {
+        this.connection = connection;
     }
 
-    public getConnection(): mysql.Connection {
+    public getConnection(): any {
         return this.connection;
     }
 
     public async connect(): Promise<void> {
-        this.connection.connect((error) => {
+        this.connection.connect((error: any) => {
             if (error) {
                 throw error;
             }
+
+            console.log('Database successfully connected!');
         });
     }
 
     public async end(): Promise<void> {
-        this.connection.end((error) => {
+        this.connection.end((error: any) => {
             if (error) {
                 throw error;
             }
@@ -30,7 +32,7 @@ export class MySQLDatabase {
     }
     public query(queryString: string, parameters: any = []): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.connection.query(queryString, parameters, (error, result) => {
+            this.connection.query(queryString, parameters, (error: any, result: any) => {
                 if (error) {
                     logger.error(error);
                     reject(error);
@@ -40,23 +42,17 @@ export class MySQLDatabase {
             });
         });
     }
-}
 
-export async function connect(database: MySQLDatabase): Promise<MySQLDatabase> {
-    await database.connect();
-
-    return database;
-}
-
-export async function load() {
-    try {
-        database.createBSEAssetsTable();
-        database.createCompaniesTable();
-        database.createUsersTable();
-        database.createLandingPageImageTable();
-
-        console.log('Database tables loaded');
-    } catch(error) {
-        logger.error(error);
+    public createTables() {
+        try {
+            database.createBSEAssetsTable();
+            database.createCompaniesTable();
+            database.createUsersTable();
+            database.createLandingPageImageTable();
+    
+            console.log('Database tables loaded');
+        } catch(error) {
+            logger.error(error);
+        }
     }
 }

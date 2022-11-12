@@ -1,8 +1,8 @@
-import APIRequest from '../lib/fetch';
-import { UnsplashImage, Response } from "../interfaces/TUtils";
-import { currentSeason } from "./helper";
-import * as DalUnsplash from '../dal/unsplash';
-import logger from './logger';
+import APIRequest from '../../lib/fetch';
+import { UnsplashImage, Response } from "../../interfaces/TUtils";
+import { currentSeason } from "../../utils/helper";
+import * as DalUnsplash from '../../dal/unsplash';
+import logger from '../../utils/logger';
 
 class UnsplashImages {
 

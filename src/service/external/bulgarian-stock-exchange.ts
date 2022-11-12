@@ -1,6 +1,6 @@
-import * as DAL from "../dal/assets";
-import logger from "../utils/logger";
-import { BulgarianStockExchange } from "../utils/puppeteer";
+import * as DAL from "../../dal/assets";
+import logger from "../../utils/logger";
+import { BulgarianStockExchange } from "./puppeteer";
 
 export async function addBSEAssets(type: string, page: any, htmlId: string) {
     try {
