@@ -1,7 +1,7 @@
-import { Unsplash } from"../src/utils/unsplash";
+import { Unsplash } from"../src/service/external/unsplash";
 
 describe('Unsplash service', () => {
-    test.only('+ Unsplash.fetch | should return success true', async () => {
+    test('+ Unsplash.fetch | should return success true', async () => {
         const result = await Unsplash.fetch();
 
         expect(result.success).toBe(true);

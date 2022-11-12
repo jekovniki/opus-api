@@ -41,12 +41,16 @@ export async function createUsersTable() {
     return database.query(
         `CREATE TABLE if not exists ${dbName}.Users(
             id INT NOT NULL AUTO_INCREMENT,
-            email VARCHAR(100) NOT NULL,
+            email VARCHAR(100) NOT NULL UNIQUE,
             password VARCHAR(100) NOT NULL,
+            first_name VARCHAR(255) NOT NULL,
+            last_name VARCHAR(255) NOT NULL,
             company VARCHAR(100) NOT NULL,
-            company_job VARCHAR(100) NOT NULL,
-            jwt VARCHAR(100) DEFAULT NULL NULL,
+            company_role VARCHAR(100) NOT NULL,
             is_representative BOOL DEFAULT 0,
+            birth_date VARCHAR(255) NOT NULL,
+            device_login VARCHAR(255) NOT NULL,
+            access_level INT,
             primary key (id)
         )`
     );
