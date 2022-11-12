@@ -1,7 +1,7 @@
-import puppeteer, { ConsoleMessage } from "puppeteer";
-import { convertToObject } from "./helper";
-import { FailedResponse } from "../interfaces/TUtils";
-import { IBSEAsset } from "../interfaces/IPuppeteer";
+import puppeteer from "puppeteer";
+import { convertToObject } from "../../utils/helper";
+import { FailedResponse } from "../../interfaces/TUtils";
+import { IBSEAsset } from "../../interfaces/IPuppeteer";
 
 export class BulgarianStockExchange {
 
