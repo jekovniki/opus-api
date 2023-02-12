@@ -6,11 +6,9 @@ element.addEventListener("click", async () => {
 
 async function fetchPost(email) {
     console.log(1);
-    console.log(email);
+    console.log("TEST");
     const request = axios.create({
-        "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "POST",
+        withCredentials: false,
         "X-Auth-Token": "api-key 3321avhagseem8fntsnnhnbs90xaaea9",
         "Content-Type": "application/json",
         "User-Agent": "PostmanRuntime/7.29.2"
