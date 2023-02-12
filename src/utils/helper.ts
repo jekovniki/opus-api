@@ -1,3 +1,6 @@
+import bcrypt from 'bcrypt';
+import { stringify } from 'querystring';
+
 /**
  * Helper function for transforming two arrays into key: value object
  * @param keyArray 
@@ -33,4 +36,29 @@ export function currentSeason() {
   const season = seasonArray.filter(({ date }) => date as any <= d).slice(-1)[0] || {name: "Winter"};
 
   return season.name;
+}
+
+/**
+ * Hash password
+ * @param properties;
+ */
+
+export async function hashPassword(password: string): Promise<string> {
+  const saltRounds = 7;
+  return await bcrypt.hash(password, saltRounds);
+}
+
+/**
+ * Validate typescript object
+ * @param properties
+ */
+export function validateObject(object: any) {
+  const properties = Object.keys(object);
+  for (const property in properties) {
+    if (typeof property === undefined) {
+      throw new Error(`Property ${property} is undefined`);
+    }
+  }
+
+  return object;
 }

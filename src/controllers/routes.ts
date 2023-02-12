@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import { RestServer } from '../lib/rest';
-import { postSignIn } from './post';
+import * as POST from './post';
 import bodyParser from 'body-parser';
 import { fetchBackgroundImage } from './get';
 
@@ -18,7 +18,8 @@ export function setRoutes(rest: RestServer): void {
     server.get(`${REST_PATH}/health-check`, healthCheck);
     server.get(`${REST_PATH}/getBackgroundImage`, fetchBackgroundImage);
 
-    server.post(`${REST_PATH}/UCITSsignIn`, postSignIn);
+    server.post(`${REST_PATH}/UCITSsignIn`, POST.postSignIn);
+    server.post(`${REST_PATH}/register`, POST.registerEmployee);
 }
 
 export function healthCheck(_request: Record<string, any>, response: Record<string, any>): void {
