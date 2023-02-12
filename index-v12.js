@@ -9,7 +9,6 @@ async function fetchPost(email) {
     console.log("TES1111T");
     const request = axios.create({
         headers: {
-            "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/json",
             "X-Auth-Token": "api-key 3321avhagseem8fntsnnhnbs90xaaea9",
         }
