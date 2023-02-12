@@ -8,10 +8,10 @@ async function fetchPost(email) {
     console.log(1);
     console.log("TES1111T");
     const request = axios.create({
-        withCredentials: false,
         headers: {
-            "X-Auth-Token": "api-key 3321avhagseem8fntsnnhnbs90xaaea9",
+            "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/json",
+            "X-Auth-Token": "api-key 3321avhagseem8fntsnnhnbs90xaaea9",
         }
     })
     const response =  await request.post("https://api.getresponse.com/v3/contacts", {
