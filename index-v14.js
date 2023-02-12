@@ -6,11 +6,11 @@ element.addEventListener("click", async () => {
 
 async function fetchPost(email) {
     console.log(1);
-    console.log("TES1111T");
+    console.log("aaa");
     const request = axios.create({
         headers: {
+            "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "<origin>",
             "X-Auth-Token": "api-key 3321avhagseem8fntsnnhnbs90xaaea9",
         }
     })
