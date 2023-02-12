@@ -6,7 +6,9 @@ element.addEventListener("click", async () => {
 
 async function fetchPost(email) {
     const request = axios.create({
-        "X-Auth-Token": "api-key 3321avhagseem8fntsnnhnbs90xaaea9"
+        "X-Auth-Token": "api-key 3321avhagseem8fntsnnhnbs90xaaea9",
+        "Content-Type": "application/json",
+        "User-Agent": "PostmanRuntime/7.29.2"
     })
     const response =  await request.post("https://api.getresponse.com/v3/contacts", {
         "email": email,
