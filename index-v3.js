@@ -1,5 +1,5 @@
 console.log("Github is working!");
-const axios = reuqire('axios');
+const axios = require('axios');
 
 const element = document.querySelector('.input button');
 console.log("this is the element");
