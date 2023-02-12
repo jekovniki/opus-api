@@ -6,6 +6,7 @@ import { setRoutes } from './controllers/routes';
 import { Database } from './lib/database';
 import mysql from 'mysql2';
 import { fetchUnsplashImages } from './service/external/unsplash';
+import { getCommercialData } from './service/external/commercial-register';
 
 dotenv.config();
 
@@ -29,6 +30,8 @@ async function main() {
     database.createTables();
     
     fetchUnsplashImages()
+    const informaciq = await getCommercialData("131422901");
+    console.log(informaciq);
 
     if (process.env.NODE_ENV !== 'test') {
         rest.start();
